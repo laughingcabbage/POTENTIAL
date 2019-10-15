@@ -1,0 +1,172 @@
+/**
+ * @Class Name : RecommendDao.java
+ * @Description : 
+ * @Modification Information
+ * @
+ * @  수정일      수정자              수정내용
+ * @ ---------   ---------   -------------------------------
+ * @ 2019-05-31           최초생성
+ *
+ * @author 개발프레임웍크 실행환경 HR.POTENTIAL 개발팀
+ * @since 2019-05-31 
+ * @version 1.0
+ * @see
+ *
+ *  Copyright (C) by HR.POTENTIAL All right reserved.
+ */
+package com.potential.userrecommend.dao;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+import com.potential.userrecommend.domain.RecommendedBookVO;
+import com.potential.userrecommend.domain.UserRecommendVO;
+
+/**
+ * @author sist
+ *
+ */
+public class UserRecommendDao {
+
+	private List<UserRecommendVO> list = new ArrayList<>();
+	private List<RecommendedBookVO> bookList = new ArrayList<>();
+	
+	
+	private final String FILE_PATH_1 = "//211.238.142.124//hr_data//java04//UserComment.csv";
+	private final String FILE_PATH_2 = "//211.238.142.124//hr_data//java04//Recommendation.csv";
+	
+	//초기화
+	public UserRecommendDao(){
+		readUserReview();
+		readAdminReview();
+	}
+	
+	//파일 ->list
+	public void readUserReview(){
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(FILE_PATH_1));
+			String line = "";
+			
+			while((line=br.readLine())!=null){
+				if(line.equals("")) break;
+				
+				String[] lineArr = line.split("&&&");
+				UserRecommendVO vo = new UserRecommendVO(lineArr[0], lineArr[1], lineArr[2], Double.parseDouble(lineArr[3]));
+				list.add(vo);
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println("FileNotFoundException:"+e.getMessage());
+		} catch (IOException e) {
+			System.out.println("IOException:"+e.getMessage());
+		} 
+	}
+	
+	//파일->bookList
+	public void readAdminReview(){
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(FILE_PATH_2));
+			String line = "";
+			
+			while((line=br.readLine())!=null){
+				if(line.equals("")) break;
+				
+				String[] lineArr = line.split("&&&");
+				RecommendedBookVO vo = new RecommendedBookVO(lineArr[0], lineArr[1], lineArr[2], lineArr[3], lineArr[4]);
+				bookList.add(vo);
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println("FileNotFoundException:"+e.getMessage());
+		} catch (IOException e) {
+			System.out.println("IOException:"+e.getMessage());
+		} 
+	}
+	
+	//중복확인하기
+	public boolean reviewExists(UserRecommendVO vo){
+		boolean flag=false;
+		for(int i=0; i<list.size(); i++){
+			UserRecommendVO tmpVO = list.get(i);
+			if(tmpVO.getId().equals(vo.getId()) && tmpVO.getIndex().equals(vo.getIndex())){
+				flag= true;
+				return flag;
+			}
+		}
+		flag=false;
+		return flag;
+	}
+	
+	//리스트에 vo 추가하기
+	public int do_save(UserRecommendVO vo){
+		int saveCnt=0; 
+		list.add(vo);
+		saveCnt++;
+		return saveCnt;
+	}
+	
+	//리스트에서 vo 삭제하기
+	public int do_delete(UserRecommendVO vo){
+		int deleteCnt=0; 
+		for(int i=0; i<list.size(); i++){
+			UserRecommendVO tmpVO = list.get(i);
+			if(tmpVO.getId().equals(vo.getId()) && tmpVO.getIndex().equals(vo.getIndex())){
+				list.remove(i);
+				deleteCnt++;
+			}
+		}
+		return deleteCnt;
+	}
+	
+	//파일 저장하기
+	public int saveFile(){
+		int writeCnt = 0;
+		FileWriter writer = null;
+		try {
+			writer = new FileWriter(FILE_PATH_1);
+			for(int i=0; i<list.size(); i++){
+				UserRecommendVO vo = list.get(i);
+				String strVO = vo.getIndex()+"&&&"+vo.getId()+"&&&"+vo.getComment()+"&&&"+vo.getRating()+"\n";
+				writer.write(strVO);
+				writeCnt++;
+			}
+		} catch (IOException e) {
+			System.out.println("IOException:"+e.getMessage());
+		} finally{
+			try {
+				writer.close();
+			} catch (IOException e) {
+				System.out.println("IOException:"+e.getMessage());
+			}
+		}
+		return writeCnt;
+	}
+	
+	//독자 리뷰 전체 리스트
+	public List<UserRecommendVO> getUserReviewList(){	
+		return list;
+	}
+	
+	//추천도서별 독자리뷰 리스트
+	public List<UserRecommendVO> getCommentForEachBook(String index){
+		List<UserRecommendVO> commentForEachBook = new ArrayList<>();
+		for(int i=0; i<list.size(); i++) {
+			UserRecommendVO tmpVO = list.get(i);
+			if(tmpVO.getIndex().equals(index)) {
+				commentForEachBook.add(tmpVO);
+			}
+		}
+		return commentForEachBook;
+	}
+	
+	//관리자가 작성한 리뷰 리스트
+	public List<RecommendedBookVO> getAdminReviewList(){
+		Comparator<RecommendedBookVO> comparator = Comparator.comparing(RecommendedBookVO::getIndex);
+		bookList.sort(comparator);
+		return bookList;
+	}
+}

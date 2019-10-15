@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="page1" prefHeight="350.0" prefWidth="500.0" style="-fx-background-color: #D5d5d5;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.potential.studyroom.control.StudyRoomControl">
+   <children>
+      <Pane layoutX="6.0" layoutY="8.0" prefHeight="339.0" prefWidth="327.0" style="-fx-background-color: #ffffff;">
+         <children>
+<Button id="49" fx:id="b49" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="49" />
+            <Button id="50" fx:id="b50" layoutX="47.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="50" />
+            <Button id="52" fx:id="b52" layoutX="121.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="52" />
+            <Button id="51" fx:id="b51" layoutX="88.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="51" />
+            <Button id="55" fx:id="b55" layoutX="248.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="55" />
+            <Button id="56" fx:id="b56" layoutX="281.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="56" />
+            <Button id="54" fx:id="b54" layoutX="209.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="54" />
+            <Button id="53" fx:id="b53" layoutX="176.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="53" />
+            <Button id="45" fx:id="b45" layoutX="177.0" layoutY="48.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="45" />
+            <Button id="46" fx:id="b46" layoutX="210.0" layoutY="48.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="46" />
+            <Button id="48" fx:id="b48" layoutX="280.0" layoutY="48.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="48" />
+            <Button id="47" fx:id="b47" layoutX="247.0" layoutY="48.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="47" />
+            <Button id="43" fx:id="b43" layoutX="88.0" layoutY="48.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="43" />
+            <Button id="44" fx:id="b44" layoutX="121.0" layoutY="48.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="44" />
+            <Button id="42" fx:id="b42" layoutX="47.0" layoutY="48.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="42" />
+            <Button id="41" fx:id="b41" layoutX="14.0" layoutY="48.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="41" />
+            <Button id="25" fx:id="b25" layoutX="14.0" layoutY="131.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="25" />
+            <Button id="26" fx:id="b26" layoutX="47.0" layoutY="131.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="26" />
+            <Button id="28" fx:id="b28" layoutX="121.0" layoutY="131.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="28" />
+            <Button id="27" fx:id="b27" layoutX="88.0" layoutY="131.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="27" />
+            <Button id="31" fx:id="b31" layoutX="249.0" layoutY="131.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="31" />
+            <Button id="32" fx:id="b32" layoutX="282.0" layoutY="130.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="32" />
+            <Button id="30" fx:id="b30" layoutX="211.0" layoutY="130.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="30" />
+            <Button id="29" fx:id="b29" layoutX="178.0" layoutY="130.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="29" />
+            <Button id="37" fx:id="b37" layoutX="178.0" layoutY="96.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="37" />
+            <Button id="38" fx:id="b38" layoutX="211.0" layoutY="96.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="38" />
+            <Button id="40" fx:id="b40" layoutX="282.0" layoutY="97.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="40" />
+            <Button id="39" fx:id="b39" layoutX="249.0" layoutY="97.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="39" />
+            <Button id="35" fx:id="b35" layoutX="88.0" layoutY="97.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="35" />
+            <Button id="36" fx:id="b36" layoutX="121.0" layoutY="97.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="36" />
+            <Button id="34" fx:id="b34" layoutX="47.0" layoutY="97.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="34" />
+            <Button id="33" fx:id="b33" layoutX="14.0" layoutY="97.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="33" />
+            <Button id="9" fx:id="b9" layoutX="14.0" layoutY="216.0" mnemonicParsing="false" onAction="#btnAction" prefHeight="23.0" prefWidth="31.0" style="-fx-background-color: #add8e6;" text="9" />
+            <Button id="1" fx:id="b10" layoutX="47.0" layoutY="216.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="10" />
+            <Button id="12" fx:id="b12" layoutX="121.0" layoutY="216.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="12" />
+            <Button id="11" fx:id="b11" layoutX="88.0" layoutY="216.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="11" />
+            <Button id="15" fx:id="b15" layoutX="247.0" layoutY="216.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="15" />
+            <Button id="16" fx:id="b16" layoutX="281.0" layoutY="216.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="16" />
+            <Button id="14" fx:id="b14" layoutX="209.0" layoutY="216.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="14" />
+            <Button id="13" fx:id="b13" layoutX="176.0" layoutY="216.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="13" />
+            <Button id="21" fx:id="b21" layoutX="176.0" layoutY="182.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="21" />
+            <Button id="22" fx:id="b22" layoutX="209.0" layoutY="182.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="22" />
+            <Button id="24" fx:id="b24" layoutX="282.0" layoutY="182.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="24" />
+            <Button id="23" fx:id="b23" layoutX="247.0" layoutY="182.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="23" />
+            <Button id="19" fx:id="b19" layoutX="88.0" layoutY="182.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="19" />
+            <Button id="20" fx:id="b20" layoutX="121.0" layoutY="182.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="20" />
+            <Button id="18" fx:id="b18" layoutX="47.0" layoutY="182.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="18" />
+            <Button id="17" fx:id="b17" layoutX="14.0" layoutY="182.0" mnemonicParsing="false" onAction="#btnAction" style="-fx-background-color: #add8e6;" text="17" />
+            <Button id="5" fx:id="b5" layoutX="176.0" layoutY="264.0" mnemonicParsing="false" onAction="#btnAction" prefHeight="23.0" prefWidth="31.0" style="-fx-background-color: #add8e6;" text="5" />
+            <Button id="6" fx:id="b6" layoutX="209.0" layoutY="264.0" mnemonicParsing="false" onAction="#btnAction" prefHeight="23.0" prefWidth="31.0" style="-fx-background-color: #add8e6;" text="6" />
+            <Button id="8" fx:id="b8" layoutX="282.0" layoutY="264.0" mnemonicParsing="false" onAction="#btnAction" prefHeight="23.0" prefWidth="31.0" style="-fx-background-color: #add8e6;" text="8" />
+            <Button id="7" fx:id="b7" layoutX="248.0" layoutY="264.0" mnemonicParsing="false" onAction="#btnAction" prefHeight="23.0" prefWidth="31.0" style="-fx-background-color: #add8e6;" text="7" />
+            <Button id="3" fx:id="b3" layoutX="88.0" layoutY="264.0" mnemonicParsing="false" onAction="#btnAction" prefHeight="23.0" prefWidth="31.0" style="-fx-background-color: #add8e6;" text="3" />
+            <Button id="4" fx:id="b4" layoutX="121.0" layoutY="264.0" mnemonicParsing="false" onAction="#btnAction" prefHeight="23.0" prefWidth="31.0" style="-fx-background-color: #add8e6;" text="4" />
+            <Button id="2" fx:id="b2" layoutX="47.0" layoutY="264.0" mnemonicParsing="false" onAction="#btnAction" prefHeight="23.0" prefWidth="31.0" style="-fx-background-color: #add8e6;" text="2" />
+            <Button id="1" fx:id="b1" layoutX="14.0" layoutY="264.0" mnemonicParsing="false" onAction="#btnAction" prefHeight="23.0" prefWidth="31.0" style="-fx-background-color: #add8e6;" text="1" />
+			<Label layoutX="146.0" layoutY="312.0" text="출입구" />
+            <Button fx:id="renew" layoutX="264.0" layoutY="316.0" mnemonicParsing="false" onAction="#btnActionRenew" text="새로고침" />
+            <Label layoutX="7.0" layoutY="321.0" text="파랑-&gt;현재 지정자리">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label layoutX="7.0" layoutY="310.0" text="빨강-&gt;사용중인 자리">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <VBox alignment="CENTER" layoutX="341.0" layoutY="8.0" prefHeight="339.0" prefWidth="159.0" spacing="10.0" style="-fx-background-color: #ffffff;">
+         <children>
+            <Label alignment="CENTER" prefHeight="21.0" prefWidth="168.0" text="이용안내">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextArea editable="false" prefHeight="116.0" prefWidth="159.0" text="  - 1회 신청당 3시간씩&#10;       이용가능&#10;&#10;  - 음식물 반입금지&#10;&#10;  - 휴대폰 매너모드 및&#10;      정숙유지" />
+            <TextField fx:id="info" alignment="CENTER" editable="false" />
+            <Label alignment="CENTER" prefHeight="15.0" prefWidth="156.0" text="▽선택번호▽" />
+            <TextField fx:id="seat" alignment="CENTER" editable="false" />
+            <AnchorPane prefHeight="32.0" prefWidth="159.0">
+               <children>
+                  <Button fx:id="selectBtn" layoutX="27.0" layoutY="3.0" mnemonicParsing="false" onAction="#selectBtn" text="선택" />
+                  <Button layoutX="94.0" layoutY="3.0" mnemonicParsing="false" onAction="#exitBtn" prefHeight="23.0" prefWidth="40.0" text="퇴실" />
+                  <Button layoutX="27.0" layoutY="29.0" mnemonicParsing="false" onAction="#extensionBtn" text="연장" />
+                  <Button id="backBtn" layoutX="94.0" layoutY="29.0" mnemonicParsing="false" onAction="#backBtn" text="종료" />
+               </children>
+            </AnchorPane>
+            <Label fx:id="labelID" alignment="CENTER" prefHeight="15.0" prefWidth="197.0" style="-fx-background-color: #ffffff;" text="" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

@@ -1,0 +1,175 @@
+package com.potential.booksearch.controll;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+
+import com.hr.address.domain.StaticVO;
+import com.potential.booksearch.dao.BookSearchDao;
+import com.potential.booksearch.dao.RentDao;
+import com.potential.booksearch.domain.BookSearchVO;
+import com.potential.booksearch.domain.RentVO;
+import com.potential.booksearch.domain.TablePropertyVO;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+
+public class BookSearchPageContoller implements Initializable {
+
+	private List<BookSearchVO>Booklist =new ArrayList<>();	
+
+	private final String file="//211.238.142.124/hr_data/java04/booklist.csv";
+	private final String rentfile="//211.238.142.124/hr_data/java04/RentBookList1.csv";
+	@FXML private TableView<TablePropertyVO> TableView;
+    @FXML private TableColumn<TablePropertyVO, String> name;
+    @FXML private TableColumn<TablePropertyVO, String> writer;
+    @FXML private TableColumn<TablePropertyVO, String> pub;
+    @FXML private TableColumn<TablePropertyVO, String> pubyear;
+    @FXML private TableColumn<TablePropertyVO, String> remarks;
+    @FXML private TableColumn<TablePropertyVO, String> state;
+    @FXML private ComboBox<String> searchCombo;
+	@FXML private Button searchBtn;
+	@FXML private Button rentBtn;
+	@FXML private TextField searchtext;
+	
+	
+	private int num;
+	private ObservableList<TablePropertyVO> myList = FXCollections.observableArrayList();
+	private List<BookSearchVO> list=null;
+
+	 
+
+	
+	public void fillTable(List<BookSearchVO> list){
+	      for(int i=0; i<list.size(); i++){
+	         BookSearchVO tmpVO = list.get(i);
+	         myList.add(new TablePropertyVO(tmpVO.getName()
+	                     ,tmpVO.getWriter()
+	                     ,tmpVO.getPub()
+	                     ,tmpVO.getPubYear()
+	                     ,tmpVO.getRemarks()
+	                     ,tmpVO.getState()
+	                    ));
+	      }
+	        
+	   }
+	
+	
+		
+		
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+			
+		    
+		   searchBtn.setOnAction(e->searchBtnAction(e));
+		   rentBtn.setOnAction(e->rentBtnAction(e));
+		   TableView.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+				
+				@Override
+				public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+					num =newValue.intValue();
+					// TODO Auto-generated method stub
+					
+				}
+			});
+
+			
+		
+					
+				
+		
+		    
+        
+        
+		    
+			
+	}
+	public void searchBtnAction(ActionEvent event){
+		
+		String strcom=searchCombo.getValue();
+		String search_value=searchtext.getText();
+		BookSearchDao BD=new BookSearchDao();
+		Booklist =BD.readFile(file);
+		list= BD.do_search(search_value, strcom,Booklist);
+			
+		//TableView
+		
+		TableColumn name = TableView.getColumns().get(0);//0번째 컬럼
+		name.setCellValueFactory(new PropertyValueFactory("name"));//모델에 속성 지정
+		
+		
+		TableColumn  writer = TableView.getColumns().get(1);//1번째 컬럼
+		writer.setCellValueFactory(new PropertyValueFactory("writer"));//모델에 속성 지정
+		
+		TableColumn pub = TableView.getColumns().get(2);//2번째 컬럼
+		pub.setCellValueFactory(new PropertyValueFactory("pub"));//모델에 속성 지정
+			
+		
+		TableColumn pubyear = TableView.getColumns().get(3);//3번째 컬럼
+		pubyear.setCellValueFactory(new PropertyValueFactory("pubyear"));//모델에 속성 지정
+		
+		TableColumn remarks = TableView.getColumns().get(4);//4번째 컬럼
+		remarks.setCellValueFactory(new PropertyValueFactory("remarks"));//모델에 속성 지정
+		TableColumn state = TableView.getColumns().get(5);//5번째 컬럼
+		state.setCellValueFactory(new PropertyValueFactory("state"));//모델에 속성 지정
+		myList.clear();
+		fillTable(list);
+		
+		TableView.setItems(myList);
+		
+	
+		
+		
+	}
+	public void rentBtnAction(ActionEvent e){
+		String id=StaticVO.UserID;
+		TablePropertyVO outVO=myList.get(num);
+		List<BookSearchVO> content=new ArrayList<>();
+		List<RentVO> rentlist=new ArrayList<>();
+		BookSearchDao BD=new BookSearchDao();
+		RentDao RD=new RentDao();
+		rentlist =RD.readFile(rentfile);
+		
+		 BookSearchVO bookVO=new BookSearchVO(outVO.getName(),outVO.getWriter(), outVO.getPub(), outVO.getPubyear(),outVO.getRemarks(),outVO.getState());
+		
+		 BD.do_rent(bookVO, Booklist,id,rentlist);
+		
+		FileWriter writer;
+		try {
+			writer = new FileWriter(rentfile);
+			RD.rentWrite(writer, rentlist);
+			writer=new FileWriter(file);
+			BD.BookWrite(writer, Booklist);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		myList.clear();
+		fillTable(list);
+		
+		TableView.setItems(myList);
+		
+		
+		
+		
+		
+	}
+	
+
+	
+}

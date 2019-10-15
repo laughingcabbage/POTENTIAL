@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.StackPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.potential.rental.control.MypageRentalControl">
+   <children>
+      <Pane prefHeight="420.0" prefWidth="206.0" style="-fx-background-color: #ededed;">
+         <children>
+            <ListView fx:id="userrent_listView" layoutX="17.0" layoutY="52.0" prefHeight="353.0" prefWidth="172.0" />
+            <Label alignment="CENTER" layoutX="17.0" layoutY="30.0" prefHeight="15.0" prefWidth="172.0" style="-fx-background-color: #d1d1d1;" text="대여목록" textAlignment="CENTER" textFill="#2f2f2f" />
+         </children>
+      </Pane>
+      <ImageView fx:id="userrent_imageView" fitHeight="94.0" fitWidth="97.0" layoutX="217.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@book.jpg" />
+         </image></ImageView>
+      <TextField fx:id="userrent_bookname" editable="false" layoutX="400.0" layoutY="60.0" prefHeight="23.0" prefWidth="188.0" />
+      <Label layoutX="359.0" layoutY="60.0" text="제목">
+         <font>
+            <Font name="Verdana" size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="userrent_authorView" editable="false" layoutX="400.0" layoutY="103.0" prefHeight="23.0" prefWidth="188.0" />
+      <Label layoutX="359.0" layoutY="103.0" text="저자">
+         <font>
+            <Font name="Verdana" size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="userrent_category" editable="false" layoutX="402.0" layoutY="150.0" prefHeight="23.0" prefWidth="188.0" />
+      <Label layoutX="325.0" layoutY="150.0" text="카테고리">
+         <font>
+            <Font name="Verdana" size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="userrent_borrowedDate" editable="false" layoutX="388.0" layoutY="270.0" />
+      <TextField fx:id="userrent_expire" editable="false" layoutX="388.0" layoutY="316.0" />
+      <Label layoutX="300.0" layoutY="270.0" text="대출날짜">
+         <font>
+            <Font name="Verdana" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="300.0" layoutY="316.0" text="대출만료">
+         <font>
+            <Font name="Verdana" size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="userrent_extendBtn" layoutX="372.0" layoutY="363.0" mnemonicParsing="false" text="대출연장신청" />
+      <TextField fx:id="userrent_IDview" editable="false" prefHeight="23.0" prefWidth="620.0" />
+   </children>
+</AnchorPane>

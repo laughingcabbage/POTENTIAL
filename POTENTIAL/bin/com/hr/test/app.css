@@ -1,0 +1,53 @@
+.root{
+	-fx-background-image: url("/com/potential/newbookadd/image/backgd.png");
+	
+}
+
+Label{
+	-fx-font-size: 15;
+	-fx-font-family: "Malgun Gothic";
+	-fx-font-weight: bold;
+	-fx-text-fill: #FFFFFF;
+	
+	
+	
+}
+
+
+
+.button{
+	-fx-font-size: 15;
+	-fx-font-family: "Malgun Gothic";
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-background-color: linear-gradient(#6C8FFF,#353535);
+	-fx-background-radius: 30;
+	-fx-background-inasets: 0;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.7),10,0,5,2.1);
+	
+	
+}
+
+
+
+.button:hover{
+	
+	-fx-background-color: linear-gradient(#9998aa, #d6d5e4);
+	
+}
+
+.button:pressed{
+	-fx-background-color: linear-gradient(green,#61A2B1);
+	
+}
+
+
+
+
+
+
+
+
+
+
+

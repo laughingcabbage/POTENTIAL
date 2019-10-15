@@ -1,0 +1,93 @@
+
+Label{
+	-fx-font-size: 12;
+	-fx-font-family: "Arial Black";
+	-fx-font-weight: bold;
+	-fx-text-fill: #3B2716;
+	
+	
+}
+
+#lt{
+	-fx-font-size: 35;
+	-fx-text-fill: white;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.7),10,0,5,2.4);
+	
+}
+
+.button{
+	-fx-font-size: 12;
+	-fx-text-fill: white;
+	-fx-background-color: linear-gradient(#6C8FFF,#353535);
+	-fx-background-radius: 30;
+	-fx-background-inasets: 0;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.7),10,0,5,2.1);
+	
+	
+}
+
+
+#start{
+	
+	-fx-font-size: 35;
+	
+	}
+	
+#end{
+	
+	-fx-font-size: 35;
+	
+	}	
+	
+#pro{
+	
+	-fx-font-size: 35;
+	
+	}
+
+.button:hover{
+	
+	-fx-background-color: linear-gradient(#9998aa, #d6d5e4);
+	
+}
+
+.button:pressed{
+	-fx-background-color: linear-gradient(green,#61A2B1);
+	
+}
+
+#test01{
+	-fx-font-size: 15;
+	-fx-text-fill: white;
+	}
+	
+#test02{
+	-fx-font-size: 15;
+	-fx-text-fill: white;
+	}
+	
+#test03{
+	-fx-font-size: 15;
+	-fx-text-fill: white;
+	}
+	
+#test04{
+	-fx-font-size: 15;
+	-fx-text-fill: white;
+	}
+	
+#test05{
+	-fx-font-size: 15;
+	-fx-text-fill: white;
+	}
+
+
+
+
+
+
+
+
+
+
+

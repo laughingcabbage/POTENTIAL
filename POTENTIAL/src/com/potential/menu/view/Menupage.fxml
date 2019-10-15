@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.potential.menu.controll.MenuContoller">
+   <children>
+      <AnchorPane prefHeight="504.0" prefWidth="351.0">
+         <children>
+            <Button fx:id="booksearchBtn" layoutX="71.0" layoutY="90.0" prefHeight="38.0" prefWidth="209.0" text="도서검색" />
+            <Button fx:id="bookapplyBtn" layoutX="71.0" layoutY="163.0" prefHeight="38.0" prefWidth="209.0" text="도서신청" />
+            <Button fx:id="mypageBtn" layoutX="71.0" layoutY="372.0" prefHeight="38.0" prefWidth="209.0" text="마이페이지" />
+            <Button fx:id="urcd" layoutX="71.0" layoutY="233.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="209.0" text="추천도서" />
+            <Button fx:id="sroom" layoutX="71.0" layoutY="305.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="209.0" text="스터디룸" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

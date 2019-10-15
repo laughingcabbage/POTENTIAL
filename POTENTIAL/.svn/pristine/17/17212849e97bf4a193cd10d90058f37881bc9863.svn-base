@@ -1,0 +1,220 @@
+package com.potential.bookapply.control;
+
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+
+import com.potential.bookapply.dao.BookApplyDao;
+import com.potential.bookapply.domain.BookApply;
+import com.potential.bookapply.domain.BookApplyVO;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+
+/**
+ * @author sist
+ *
+ */
+public class BookApplyController implements Initializable{
+
+	BookApplyDao dao = new BookApplyDao();
+	
+	/**테스트용 vo*/
+	BookApplyVO vo01 = new BookApplyVO("threeeyed", "책책책책", "저자", "출판사", "1999", "비고", "승인");
+	
+	/**알림창*/
+	Alert alert = new Alert(AlertType.INFORMATION);
+	
+	/**텍스트필드*/
+	@FXML private TextField inputTitle;
+	@FXML private TextField inputAuthor;
+	@FXML private TextField inputPublisher;
+	@FXML private TextField inputPubYear;
+	@FXML private TextField inputKeyword;
+	@FXML private TextField inputComment;
+	
+	/**체크박스*/
+	@FXML private CheckBox checkBox;
+	
+	/**버튼*/
+	@FXML private Button apply;
+	@FXML private Button search;
+	
+	/**콤보박스*/
+	@FXML private ComboBox searchCondition;
+	
+	/**테이블*/
+	@FXML private TableView<BookApply> table; 
+	@FXML private ObservableList<BookApply> observableList = FXCollections.observableArrayList();
+	@FXML private TableColumn<BookApply, String> titleColumn;
+	@FXML private TableColumn<BookApply, String> authorColumn;
+	@FXML private TableColumn<BookApply, String> publisherColumn;
+	@FXML private TableColumn<BookApply, String> pubYearColumn;
+	@FXML private TableColumn<BookApply, String> commentColumn;
+	@FXML private TableColumn<BookApply, String> statusColumn;
+	
+	
+	/**
+	 * <신청> 버튼 누르면 입력 받은 정보를 신청리스트에 추가
+	 */
+	public void applyBook(){
+		//알림창 설정
+		alert.setTitle("도서신청");
+		alert.setHeaderText(null);
+		
+		//제목 텍스트필드 비어 있으면 알림창 띄우기 
+		if (inputTitle.getText() == null || inputTitle.getText().trim().isEmpty()) {
+			alert.setContentText("제목을 입력해 주세요.");
+			alert.show();
+		}else if(inputPublisher.getText() == null || inputPublisher.getText().trim().isEmpty()){
+			alert.setContentText("출판사를 입력해 주세요.");
+			alert.show();
+		}else{
+			
+			//각 필드에 입력된 값들을 받아 vo로 저장하기(지금 id 임시로 해 놓음!!)
+			BookApplyVO vo = new BookApplyVO(vo01.getId(), inputTitle.getText(), inputAuthor.getText(), 
+					inputPublisher.getText(), inputPubYear.getText(), inputComment.getText(), "대기");
+
+			//새 vo를 list에 추가하기
+			int flag = dao.do_save(vo);
+			
+			//신청상태 알려주기
+			if(flag==1){
+				alert.setContentText("신청하였습니다.");
+			}else if(flag==0){
+				alert.setContentText("이미 신청된 도서입니다.");
+			}else{
+				alert.setContentText("구입이 거부된 도서입니다.");
+			}
+			alert.show();
+			
+			//테이블 업데이트 하기
+			observableList.clear();
+			fillTable(dao.getMyList());
+			
+			//파일 저장
+			dao.saveFile();
+		}
+		//각 텍스트필드 비우기
+		inputTitle.setText("");
+		inputAuthor.setText("");
+		inputPublisher.setText("");
+		inputPubYear.setText("");
+		inputComment.setText("");
+	}
+	
+	
+	/**
+	 * <검색> 버튼 누르면 검색 조건에 따라 검색
+	 */
+	public void searchBook(){
+		//알림창 설정
+		alert.setTitle("신청도서목록");
+		alert.setHeaderText(null);
+		
+		//콤보박스에 선택된 검색조건을 문자열로 저장
+		String condition = (String) searchCondition.getValue();
+		
+		//검색창에 입력된 키워드를 문자열로 저장
+		String keyword = inputKeyword.getText();
+		
+		//검색조건을 선택하지 않았으면 알림창 띄우기
+		if(condition==null) {
+			alert.setContentText("검색조건을 선택하세요.");
+			alert.show();
+		}else {
+			//입력 받은 키워드로 검색한 결과를 리스트로 만들기 
+			List<BookApplyVO> searchResult = dao.do_search(condition, keyword);
+			
+			//검색 결과가 없으면 알림창 띄우기
+			if(searchResult.isEmpty()){
+				alert.setContentText("검색결과가 없습니다.");
+				alert.show();
+			}else{//검색 결과가 있으면 현재 테이블에 있는 현재리스트를 지우고 검색결과리스트로 채우기
+				observableList.clear();
+				fillTable(searchResult);
+			}
+			//텍스트필드 비우기
+			inputKeyword.setText("");
+		}
+	}
+	
+	/**
+	 * 테이블에 데이터 채우기
+	 * @param list
+	 */
+	public void fillTable(List<BookApplyVO> list){
+		for(int i=0; i<list.size(); i++){
+			BookApplyVO tmpVO = list.get(i);
+			observableList.add(new BookApply(new CheckBox()
+							,tmpVO.getId()
+							,tmpVO.getTitle()
+							,tmpVO.getAuthor()
+							,tmpVO.getPublisher()
+							,tmpVO.getPubYear()
+							,tmpVO.getComment()
+							,tmpVO.getStatus()));
+		}
+			table.setItems(observableList);
+	}
+	
+	public void initialize(URL location, ResourceBundle resources){
+		//테이블 설정
+		titleColumn.setCellValueFactory(new PropertyValueFactory<BookApply, String>("title"));
+		authorColumn.setCellValueFactory(new PropertyValueFactory<BookApply, String>("author"));
+		publisherColumn.setCellValueFactory(new PropertyValueFactory<BookApply, String>("publisher"));
+		pubYearColumn.setCellValueFactory(new PropertyValueFactory<BookApply, String>("pubYear"));
+		commentColumn.setCellValueFactory(new PropertyValueFactory<BookApply, String>("comment"));
+		statusColumn.setCellValueFactory(new PropertyValueFactory<BookApply, String>("status"));
+		fillTable(dao.getMyList());
+		
+		//신청 버튼 누르면 책 신청하기
+		apply.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				if(event.MOUSE_CLICKED!=null){
+					applyBook();
+				}
+			}
+		});
+		
+		//검색 버튼 누르면 책 검색하기
+		search.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				if(event.MOUSE_CLICKED!=null){
+					searchBook();
+				}
+			}
+		});
+		
+		//검색창에서 엔터치면 책 검색하기
+		inputKeyword.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent event) {
+				if(event.getCode().equals(KeyCode.ENTER)){
+					searchBook();
+				}
+			}
+		});
+	}
+}

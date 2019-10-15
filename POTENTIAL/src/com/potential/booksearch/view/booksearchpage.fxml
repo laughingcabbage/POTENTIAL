@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.collections.*?>
+
+<VBox alignment="center" prefHeight="513.0" prefWidth="622.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.potential.booksearch.controll.BookSearchPageContoller">
+<padding>
+        <Insets bottom="10" left="10" right="10" top="10" />
+    </padding>
+   <children>
+       <TableView fx:id="TableView" prefHeight="362.0" prefWidth="600.0">
+           <columns>
+               <TableColumn fx:id="name" prefWidth="100.0" text="도서 제목" />
+               <TableColumn fx:id="writer" prefWidth="100.0" text="저자" />
+               <TableColumn fx:id="pub" prefWidth="100.0" text="출판사" />
+               <TableColumn fx:id="pubyear" prefWidth="100.0" text="발행년도" />
+               <TableColumn fx:id="remarks" prefWidth="100.0" text="비고" />
+               <TableColumn fx:id="state" prefWidth="100.0" text="상태" />
+           </columns>
+       </TableView>
+       <HBox nodeOrientation="RIGHT_TO_LEFT">
+           <VBox.margin>
+               <Insets top="6" />
+           </VBox.margin> 
+       </HBox>
+      <HBox>
+         <children>
+          <ComboBox fx:id="searchCombo" prefWidth="150.0">
+           	 	<items>
+		            <FXCollections fx:factory="observableArrayList">
+		      			<String fx:value="name" />
+		      			<String fx:value="writer" />
+		      			<String fx:value="pub" />
+		      			<String fx:value="pubyear" />
+		      		</FXCollections>
+      			</items>
+      		</ComboBox>
+            <TextField fx:id="searchtext" />
+         </children>
+      </HBox>
+      <HBox alignment="TOP_RIGHT" prefHeight="28.0" prefWidth="602.0">
+         <children>
+            <Button fx:id="searchBtn" prefHeight="30" prefWidth="80" text="검색" />
+            <Button fx:id="rentBtn" prefHeight="30" prefWidth="80" text="대여" />
+         </children>
+      </HBox>
+   </children>
+
+
+</VBox>

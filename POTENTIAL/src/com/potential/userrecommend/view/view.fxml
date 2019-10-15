@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import org.controlsfx.control.Rating?>
+
+<AnchorPane prefHeight="700.0" prefWidth="655.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.potential.userrecommend.control.Control">
+   <children>
+      <Label layoutX="24.0" layoutY="37.0" text="[이달의 추천도서]">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Separator layoutX="24.0" layoutY="67.0" prefHeight="4.0" prefWidth="605.0" />
+      <ComboBox fx:id="comboBox" layoutX="505.0" layoutY="40.0" prefHeight="23.0" prefWidth="124.0" promptText="지난 추천도서" />
+      <ImageView fx:id="imageView" fitHeight="280.0" fitWidth="225.0" layoutX="29.0" layoutY="90.0" pickOnBounds="true" preserveRatio="false" />
+      <Label layoutX="270.0" layoutY="100.0" text="제 목   :" />
+      <Label layoutX="270.0" layoutY="130.0" text="저 자   :" />
+      <Label layoutX="270.0" layoutY="160.0" text="출판사 :" />
+      <Separator layoutX="270.0" layoutY="200.0" prefHeight="4.0" prefWidth="355.0" />
+      <Label layoutX="270.0" layoutY="210.0" text="[책소개]" />
+      <Separator layoutX="25.0" layoutY="388.0" prefHeight="4.0" prefWidth="605.0" />
+      <Label layoutX="25.0" layoutY="400.0" text="[독자리뷰]" />
+      <Label fx:id="title" layoutX="320.0" layoutY="100.0" prefHeight="15.0" prefWidth="164.0" />
+      <Label fx:id="author" layoutX="320.0" layoutY="130.0" prefHeight="15.0" prefWidth="164.0" />
+      <Label fx:id="publisher" layoutX="320.0" layoutY="160.0" prefHeight="15.0" prefWidth="164.0" />
+      <Label fx:id="review" layoutX="270.0" layoutY="231.0" prefHeight="143.0" prefWidth="355.0" />
+      <Label layoutX="25.0" layoutY="615.0" text="[한줄평 남기기]" />
+      <Rating fx:id="myRating" layoutX="25.0" layoutY="640.0" prefHeight="18.0" prefWidth="100.0" />
+      <TextField fx:id="inputComment" layoutX="135.0" layoutY="640.0" prefHeight="23.0" prefWidth="450.0" />
+      <Button fx:id="save" layoutX="590.0" layoutY="640.0" text="확인" />
+      <Label layoutX="350.0" layoutY="400.0" text="평가한 독자" />
+      <Label fx:id="readers" layoutX="433.0" layoutY="398.0" prefHeight="18.0" prefWidth="30.0" />
+      <Label layoutX="450.0" layoutY="400.0" text="명   /  평균 " />
+      <Rating fx:id="avgRating" layoutX="523.0" layoutY="398.0" prefHeight="18.0" prefWidth="100.0" />
+      <ScrollPane hbarPolicy="NEVER" layoutX="31.0" layoutY="430.0" prefHeight="170.0" prefWidth="589.0" >
+         <content>
+            <VBox fx:id="vBox" prefWidth="571.0" />
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

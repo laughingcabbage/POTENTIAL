@@ -1,0 +1,285 @@
+package com.potential.userrecommend.control;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.ResourceBundle;
+
+import javax.imageio.ImageIO;
+
+import org.controlsfx.control.Rating;
+
+import com.potential.userrecommend.dao.UserRecommendDao;
+import com.potential.userrecommend.domain.RecommendedBookVO;
+import com.potential.userrecommend.domain.UserRecommendVO;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+
+public class Control implements Initializable {
+	
+	/**DAO*/
+	UserRecommendDao dao = new UserRecommendDao();
+	
+	/**알림창*/
+	Alert alert = new Alert(AlertType.INFORMATION);
+	
+	/**임시 id*/
+	private String id = "threeeyed";
+	
+	/**콤보박스*/
+	@FXML ComboBox<String> comboBox;
+	
+	/**이미지뷰*/
+	@FXML private ImageView imageView;
+	
+	/**라벨*/
+	@FXML private Label title;
+	@FXML private Label author;
+	@FXML private Label publisher;
+	@FXML private Label review;
+	@FXML private Label readers;
+	
+	/**텍스트필드*/
+	@FXML private TextField inputComment;
+	
+	/**버튼*/
+	@FXML private Button save;
+	
+	/**VBox*/
+	@FXML private VBox vBox;
+
+	/**별점*/
+	@FXML private Rating myRating;
+	@FXML private Rating avgRating;
+	
+	/**콤보박스 리스트*/
+	@FXML private ObservableList<String> comboBoxList = FXCollections.observableArrayList();
+	
+	/**임시VO*/
+	UserRecommendVO newVO = new UserRecommendVO();	
+	
+	/**현재 날짜로 index 구하기*/
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
+	String index = sdf.format(new Date());
+	
+	
+	
+	/**
+	 * 콤보박스 리스트 생성(리뷰 중 최근 6개월 것만)
+	 */
+	public void setComboBoxList() {
+		for(int i=dao.getAdminReviewList().size()-1; i>=dao.getAdminReviewList().size()-6; i--) {
+			comboBoxList.add(String.valueOf(dao.getAdminReviewList().get(i).getIndex()));
+			comboBox.setItems(comboBoxList);
+		}
+	}
+	
+	/**
+	 * <저장> 버튼 눌러 리뷰 남기기
+	 */
+	public void add() {
+		//알림창 설정
+		alert.setTitle("이달의 추천도서");
+		alert.setHeaderText(null);
+		
+		//텍스트필드 비어 있으면 알림창 띄우기 
+		if(inputComment.getText() == null || inputComment.getText().trim().isEmpty()){
+			alert.setContentText("내용이 없습니다.");
+			alert.show();
+		}else{
+			//새 vo만들기
+			String date = (String)comboBox.getValue();
+			if(date==null) date=index;
+			String comment = inputComment.getText();
+			newVO.setIndex(date);
+			newVO.setId(id);
+			newVO.setReview(comment);
+			
+			//중복확인하기
+			boolean flag = dao.reviewExists(newVO);
+				
+			//중복일 때
+			if(flag==true){
+				Alert confirm = new Alert(AlertType.CONFIRMATION, "이미 등록하신 리뷰가 있습니다. 덮어쓰시겠습니까?", ButtonType.YES, ButtonType.NO);
+				confirm.setTitle("이달의 추천도서");
+				confirm.setHeaderText(null);
+				confirm.showAndWait();
+				if(confirm.getResult()==ButtonType.YES){//덮어쓰기
+					dao.do_delete(newVO);
+					dao.do_save(newVO);
+					dao.saveFile();
+					alert.setContentText("저장되었습니다.");
+					alert.show();
+					vBox.getChildren().clear();
+					showComment(date);
+					inputComment.setText("");
+				}else{//덮어쓰기 하지 않고 취소
+					alert.setContentText("취소하였습니다.");
+					alert.show();
+				}
+
+			}else{//중복이 아닐 때
+				dao.do_save(newVO);
+				dao.saveFile();
+				alert.setContentText("저장되었습니다.");
+				alert.show();
+				vBox.getChildren().clear();
+				showComment(date);
+				inputComment.setText("");
+			}
+		}
+	}
+	
+	/**
+	 * 관리자가 작성한 리뷰 보여주기
+	 * @param date
+	 */
+	public void showReview(String date){
+		for(int i=0; i<dao.getAdminReviewList().size(); i++) {
+			RecommendedBookVO tmpVO = dao.getAdminReviewList().get(i);
+			if(tmpVO.getIndex().equals(date)) {
+				//책 정보 표시
+				String bookReview = tmpVO.getReview().replaceAll("\t", "\n");
+				title.setText(tmpVO.getTitle());
+				author.setText(tmpVO.getAuthor());
+				publisher.setText(tmpVO.getPublisher());
+				review.setMaxSize(355.0, 120.0);
+				review.setLayoutX(270.0);
+				review.setLayoutY(240.0);
+				review.setText(bookReview);
+				
+				//표지 이미지 표시
+				File cover = new File("//211.238.142.124//hr_data//java04//images//"+date+".jpg");
+				BufferedImage bi;
+				try {
+					bi = ImageIO.read(cover);
+					Image image = SwingFXUtils.toFXImage(bi, null);
+					imageView.setImage(image);
+				} catch (IOException e) {
+					File noImage = new File("//211.238.142.124//hr_data//java04//images//noImage.jpg");
+					try {
+						bi = ImageIO.read(noImage);
+						Image image = SwingFXUtils.toFXImage(bi, null);
+						imageView.setImage(image);
+					} catch (IOException e1) {
+						System.out.println("IOException:"+e1.getMessage());
+					}
+				}
+			}
+		}
+	}
+	
+	/**
+	 * 독자가 작성한 리뷰 코멘트 보여주기
+	 * @param date
+	 */
+	public void showComment(String date) {
+		double sum=0.0;
+		double score=0.0;
+		
+		for(int i=dao.getCommentForEachBook(date).size()-1; i>=0; i--) {
+			UserRecommendVO vo = dao.getCommentForEachBook(date).get(i);
+			
+			//hbox, 별점, 아이디, 코멘트 생성
+			HBox h = new HBox();
+			Rating rating = new Rating();
+			Label idLabel = new Label();
+			Label commentLabel = new Label();
+			
+			//리스트 사이즈만큼 vbox에 hbox 생성된다
+			vBox.getChildren().add(h);
+			
+			//HBox 설정
+			h.getChildren().addAll(rating, idLabel, commentLabel);
+			h.setPadding(new Insets(5, 5, 5, 5));
+			h.setSpacing(10);
+			
+			//별점 설정
+			rating.setRating(vo.getRating());
+			rating.setDisable(true);
+			
+			//id라벨 설정
+			idLabel.setText(vo.getId());
+			idLabel.setMinSize(75, 18);
+			idLabel.setMaxSize(75, 18);
+			
+			//comment라벨 설정 
+			commentLabel.setText(vo.getComment());
+			commentLabel.setMinSize(350, 18);
+			commentLabel.setMaxSize(350, 18);
+			
+			score = vo.getRating();
+			sum += score;
+		}
+		//평가한 독자 수 설정
+		String cnt = Integer.toString(dao.getCommentForEachBook(date).size());
+		readers.setText(cnt);
+		readers.setMinSize(50, 18);
+		readers.setMaxSize(50, 18);
+		//System.out.println(cnt);
+				
+		//평점 설정
+		avgRating.setRating(sum/dao.getCommentForEachBook(date).size());
+		avgRating.setDisable(true);
+	}
+	
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+
+		//초기화
+		setComboBoxList();
+		showReview(index);
+		showComment(index);
+		
+		//콤보박스에서 선택된 값을 인덱스로 저장-> 해당 인덱스의 파일 불러오기
+		comboBox.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				String date=(String)comboBox.getValue();
+				if(MouseEvent.MOUSE_CLICKED!=null) {
+					showReview(date);
+					vBox.getChildren().clear();
+					showComment(date);
+				}	
+			}
+		});
+					
+		//<저장>버튼 눌러 리뷰 남기기
+		save.setOnAction(event->add());
+		
+		//별점 값 받아오기
+		myRating.ratingProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				newVO.setRating((double)newValue);	
+				System.out.println(newValue);
+			}
+		});
+
+	}
+
+}

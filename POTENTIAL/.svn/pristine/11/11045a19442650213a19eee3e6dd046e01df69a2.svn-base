@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="360.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.potential.bookapplylist.control.BookApplyListController">
+   <children>
+      <TableView fx:id="table" layoutX="14.0" layoutY="14.0" prefHeight="285.0" prefWidth="623.0">
+        <columns>
+          <TableColumn fx:id="checkBoxColumn" prefWidth="25.0">
+               <graphic>
+                  <CheckBox fx:id="checkBox" mnemonicParsing="false" />
+               </graphic>
+            </TableColumn>
+          <TableColumn fx:id="idColumn" prefWidth="65.0" text="신청인" />
+            <TableColumn fx:id="titleColumn" prefWidth="150.0" text="제목" />
+            <TableColumn fx:id="authorColumn" prefWidth="65.0" text="저자" />
+            <TableColumn fx:id="publisherColumn" prefWidth="65.0" text="출판사" />
+            <TableColumn fx:id="pubYearColumn" prefWidth="65.0" text="발행년도" />
+            <TableColumn fx:id="commentColumn" prefWidth="100.0" text="비고" />
+            <TableColumn fx:id="statusColumn" prefWidth="65.0" text="상태" />
+        </columns>
+      </TableView>
+      <ComboBox fx:id="searchCondition" layoutX="14.0" layoutY="317.0" prefHeight="23.0" prefWidth="112.0" promptText="검색조건">
+      	<items>
+			<FXCollections fx:factory="observableArrayList">
+				<String fx:value="제목" />
+				<String fx:value="저자" />
+				<String fx:value="신청인" />
+			</FXCollections>
+		</items>
+      </ComboBox>
+      <TextField fx:id="inputKeyword" layoutX="133.0" layoutY="317.0" prefHeight="23.0" prefWidth="307.0" />
+      <Button fx:id="search" layoutX="446.0" layoutY="317.0" mnemonicParsing="false" text="검색" />
+      <Button fx:id="approve" layoutX="550.0" layoutY="317.0" mnemonicParsing="false" text="승인" />
+      <Button fx:id="reject" layoutX="596.0" layoutY="317.0" mnemonicParsing="false" text="거부" />
+   </children>
+</AnchorPane>
